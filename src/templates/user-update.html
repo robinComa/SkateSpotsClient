@@ -1,10 +1,6 @@
 <div class="row-fluid">
 
 	<div class="span4 offset1">
-		<img ng-show="user.avatar" ng-src="{{user.avatar | cloudinary:'small'}}" class="img-polaroid"/>
-		<a href="#/picture/create/user/updateAvatar/{{user.id}}" class="btn btn-large btn-block btn-primary">{{'user.update.avatar' | i18n}}</a>
-		
-		<hr>
 		
 		<form ng-submit="onUpdateBoardInfo()">
 			<input ng-model="size" class="span3" required="required" type="number" min="6.5" step="0.05" max="8.75" placeholder="{{'user.update.board.size' | i18n}}"/>

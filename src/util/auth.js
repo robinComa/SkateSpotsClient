@@ -26,6 +26,7 @@ Auth = function(){
 				FB.api('/me', function(resp) {
 					var user = {
 						id : resp.id,
+						social : 'Facebook',
 						name : resp.name,
 						email : resp.email,
 						avatar : 'http://graph.facebook.com/' + resp.id + '/picture'
@@ -74,6 +75,7 @@ Auth = function(){
 					gapi.client.plus.people.get( {'userId' : 'me'} ).execute(function(resp) {
 						var user = {
 							id : resp.id,
+							social : 'Google',
 							name : resp.displayName,
 							email : '',
 							avatar : resp.image.url

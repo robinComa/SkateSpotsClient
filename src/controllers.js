@@ -10,7 +10,7 @@ function LoginCtrl($rootScope, $scope, $location, $routeParams, $http, User){
 	auth.init();
 	auth.onAuthCallback = function(social_user){
 		console.log(social_user)
-		$http.defaults.headers.common["Authorization"] = window.btoa(social_user.email+':'+social_user.id);
+		$http.defaults.headers.common["Authorization"] = window.btoa(social_user.id);
 		User.login({}, function(data){
 			$rootScope.user = data;
 			$location.path('/user/show/'+$rootScope.user.id);
@@ -36,6 +36,8 @@ function UserCreateCtrl($rootScope, $scope, $location, User){
 			$rootScope.util.getUserPosition(function(currentCoordinates){
 				if(currentCoordinates){
 					User.create({
+						clientId : $scope.social_user.id,
+						social : $rootScope.social_user.social,
 						name : $scope.name,
 						email : $rootScope.social_user.email,
 						avatar : $rootScope.social_user.avatar,
@@ -103,7 +105,7 @@ function UserListCtrl($rootScope, $scope, $location, User){
 				$scope.users = $rootScope.util.needArray(users.user);
 				for(var i in $scope.users){
 					map.addMarker($scope.users[i].coordinates, {
-						title : $scope.users[i].firstName + ' ' + $scope.users[i].lastName,
+						title : $scope.users[i].name,
 						link : '#/user/show/'+$scope.users[i].id
 					});
 				}

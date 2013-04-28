@@ -44,7 +44,7 @@
 			<div ng-repeat="comment in spot.comments | orderBy:'date':true" class="well well-small">
 				<button class="close" ng-click="onDeleteComment(comment)">&times;</button>
 				<a href="#/user/show/{{comment.user.id}}">
-					<img ng-src="{{comment.user.avatar | cloudinary:'mini'}}" class="img-circle"/>
+					<img ng-src="{{comment.user.avatar}}" class="img-circle"/>
 				</a>
 				<strong><small>{{comment.user.firstName}} {{comment.user.lastName}}</small></strong>
 				<i class="pull-right text-info"><small>{{comment.date | dateDelta}}&nbsp;&nbsp;&nbsp;</small></i>

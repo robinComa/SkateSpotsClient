@@ -4,22 +4,22 @@
 		<div id="map" class="thumbnail"></div>
 		<div class="row-fluid">
 			<div class="span6">
-				<h3 class="text-center">{{user.name}}</h3>
-				<img ng-show="user.avatar" ng-src="{{user.avatar | cloudinary:'small'}}" class="img-polaroid"/>
-				<img ng-show="user.board.picture" ng-src="{{user.board.picture | cloudinary:'small'}}" class="img-polaroid pull-right"/>
+				<h3 class="text-center">{{currentUser.name}}</h3>
+				<img ng-show="currentUser.avatar" ng-src="{{currentUser.avatar}}" class="img-polaroid"/>
+				<img ng-show="currentUser.board.picture" ng-src="{{currentUser.board.picture | cloudinary:'small'}}" class="img-polaroid pull-right"/>
 				<br>
-				<img ng-show="user.board.logo" ng-src="{{user.board.logo | cloudinary:'mini'}}"/>
-				<small ng-show="user.board.name"> {{user.board.name}}</small> <small ng-show="user.board.size">({{user.board.size}})</small> 
+				<img ng-show="currentUser.board.logo" ng-src="{{currentUser.board.logo | cloudinary:'mini'}}"/>
+				<small ng-show="currentUser.board.name"> {{currentUser.board.name}}</small> <small ng-show="currentUser.board.size">({{currentUser.board.size}})</small> 
 			</div>
-			<div class="span6" ng-show="isOwner && !(user.board || user.avatar)">
-				<a href="#/user/update/{{user.id}}" class="btn btn-block btn-large btn-primary">{{'user.update.profile' | i18n}}</a>
+			<div class="span6" ng-show="isOwner && !(currentUser.board || currentUser.avatar)">
+				<a href="#/user/update/{{currentUser.id}}" class="btn btn-block btn-large btn-primary">{{'currentUser.update.profile' | i18n}}</a>
 			</div>
 			<div class="span6">
 				<hr>
-				<a href="#/user/show/{{user.id}}" ng-show="isOwner" ng-hide="checkInChoose" ng-click="onCheckIn()" class="btn btn-large btn-block btn-primary">{{'checkin.new' | i18n}} <i class="icon-flag icon-white"></i></a>
+				<a href="#/user/show/{{currentUser.id}}" ng-show="isOwner" ng-hide="checkInChoose" ng-click="onCheckIn()" class="btn btn-large btn-block btn-primary">{{'checkin.new' | i18n}} <i class="icon-flag icon-white"></i></a>
 				<div class="well sidebar-nav">
 					<ul class="nav nav-list" ng-hide="checkInChoose">
-						<li ng-repeat="checkin in user.checksin | orderBy:'date':true">
+						<li ng-repeat="checkin in currentUser.checksin | orderBy:'date':true">
 							<a href="#/spot/show/{{checkin.spot.id}}">{{checkin.spot.name}} ({{checkin.date | dateDelta}})</a>
 						</li>
 					</ul>
@@ -28,8 +28,8 @@
 							<button class="close" ng-click="checkInChoose = !checkInChoose">&times;</button>
 							{{'checkin.select.spot' | i18n}}! <i class="icon-flag"> </i>
 						</li>
-						<li ng-repeat="spot in user.checkin">
-							<a href="#/user/show/{{user.id}}" ng-click="onCheckInSpotChoose(spot.id)">
+						<li ng-repeat="spot in currentUser.checkin">
+							<a href="#/user/show/{{currentUser.id}}" ng-click="onCheckInSpotChoose(spot.id)">
 								{{spot.name}}
 							</a>
 						</li>

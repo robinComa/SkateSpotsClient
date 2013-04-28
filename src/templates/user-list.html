@@ -7,7 +7,7 @@
 			<ul class="nav nav-list">
 				<li ng-repeat="user in users">
 					<a href="#/user/show/{{user.id}}">
-						<img ng-show="user.avatar" ng-src="{{user.avatar | cloudinary:'mini'}}" class="img-circle"/>
+						<img ng-show="user.avatar" ng-src="{{user.avatar}}" class="img-circle"/>
 						{{user.name}}
 					</a>
 				</li>

@@ -1,0 +1,15 @@
+<form ng-submit="onCreateUser()" class="span6 offset3">
+
+	<input class="input-block-level" type="text" maxlength="20" ng-model="firstname" placeholder="{{'user.create.firstname' | i18n}}"/>
+	<input class="input-block-level" type="text" maxlength="20" ng-model="lastname" placeholder="{{'user.create.lastname' | i18n}}"/>
+	<input class="input-block-level" ng-model="email" maxlength="20" type="email" placeholder="{{'login.email' | i18n}}"/>
+	<input class="input-block-level" ng-model="password1" type="password" placeholder="{{'login.password' | i18n}}"/>
+	<input class="input-block-level" ng-model="password2" type="password" placeholder="{{'login.password' | i18n}}"/>
+
+	<input ng-model="lat" type="text"/>
+	<input ng-model="lon" type="text"/>
+	<hr>
+	
+	<button type="submit" class="btn btn-large btn-block btn-success">{{'user.create.button' | i18n}} <i class="icon-ok icon-white"></i></button>
+
+</form>

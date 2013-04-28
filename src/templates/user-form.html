@@ -1,0 +1,7 @@
+<form ng-submit="onCreateUser()">
+	<img ng-src="{{social_user.avatar}}" class="img-polaroid"/>
+	<br>
+	<input required="required" maxlength="20" type="text" ng-model="name" placeholder="{{'user.create.name' | i18n}}" class="input-block-level"/>	
+	
+	<button type="submit" class="btn btn-large btn-block btn-success">{{'user.create.submit' | i18n}} <i class="icon-ok icon-white"></i></button>
+</form>

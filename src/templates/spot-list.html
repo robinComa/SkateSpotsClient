@@ -1,0 +1,19 @@
+<div class="span12">
+	<div class="container-fluid">
+	
+		<div id="map" class="thumbnail"></div>
+		<a href="#/spot/create" class="btn btn-large btn-block btn-primary">{{'spot.create' | i18n}} <i class="icon-map-marker icon-white"></i></a>
+		<hr>
+		<div class="well sidebar-nav">
+			<ul class="nav nav-list">
+				<li ng-repeat="spot in spots | orderBy: 'nbLikes':true">
+					<a href="#/spot/show/{{spot.id}}">
+						{{spot.name}}
+						<span class="badge badge-info pull-right">{{spot.nbLikes}} <i class="icon-thumbs-up icon-white"></i></span>
+					</a>
+				</li>
+			</ul>
+		</div>
+	
+	</div>
+</div>

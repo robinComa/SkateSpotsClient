@@ -1,0 +1,8 @@
+<div id="map" class="thumbnail"></div>
+<hr>
+
+<form class="span6 offset3" ng-submit="onCreate()">
+	<input required="required" maxlength="20" type="text" ng-model="name" placeholder="{{'spot.create.name' | i18n}}" class="input-block-level"/>
+	<textarea required="required" maxlength="255" rows="" cols="" ng-model="description" placeholder="{{'spot.create.description' | i18n}}"  class="input-block-level"></textarea>	
+	<button type="submit" class="btn btn-large btn-block btn-success">{{'spot.create.submit' | i18n}} <i class="icon-ok icon-white"></i></button>
+</form>

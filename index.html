@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html lang="en" ng-app="SkateSpots">
+<head>
+	<title>Skate Spots</title>
+	    
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	    
+    <link rel="stylesheet" href="libs/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="libs/bootstrap/css/bootstrap-responsive.min.css">
+    <link rel="stylesheet" href="libs/leaflet/leaflet.css">
+    <link rel="stylesheet" href="css/application.css">
+</head>
+
+<body ng-controller="MainCtrl">
+
+	<div id="fb-root"></div>
+
+	<div class="navbar navbar-fixed-top" ng-show="user">
+      <div class="navbar-inner">
+        <div class="container">
+          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <ul class="nav">
+            <li><a href="#/user/show/{{user.id}}"><i class="icon-home"></i></a></li>
+            <li><a href="#/spot/list"><i class="icon-map-marker"></i> {{'spots' | i18n}}</a></li>
+            <li><a href="#/user/list"><i class="icon-user"></i> {{'users' | i18n}}</a></li>
+          </ul>
+          <div class="nav-collapse collapse">
+            <ul class="nav pull-right">
+            	<li><a href="#/user/update/{{user.id}}"><i class="icon-cog"></i> {{'settings' | i18n}}</a></li>
+            	<li><a href="#/logout"><i class="icon-lock"></i> {{'logout' | i18n}}</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+    
+    <div class="modal" ng-show="alert.show" ng-class="alert.type">
+    	<div class="modal-header" class="alert">
+	    	<button class="close" ng-click="closeAlert()">&times;</button>
+			<strong>{{alert.type | i18n}}!</strong>
+		</div>
+		<div class="modal-body" class="alert">
+		    <div>
+				<p>{{alert.message}}.</p>
+			</div>
+		</div>
+		<div class="modal-footer">
+		    <button ng-click="closeAlert()" class="btn btn-primary">{{'close.button' | i18n}}</button>
+		</div>
+    </div>
+
+	<div class="container row-fluid" ng-view></div>
+	
+	<div id="footer">
+		<div class="container">
+			<hr>
+			<p class="muted credit text-center"><img src="img/logo/25x25.png"/> Skate Spots...</p>
+		</div>
+	</div>
+	
+</body>
+
+<script type="text/javascript" charset="utf-8" src="libs/angular.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="libs/jquery.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="libs/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" charset="utf-8" src="libs/angular-resource.js"></script>
+<script type="text/javascript" charset="utf-8" src="libs/cordova-2.4.0.js"></script>
+<script type="text/javascript" charset="utf-8" src="libs/leaflet/leaflet.js"></script>
+<script type="text/javascript" charset="utf-8" src="src/util/map.js"></script>
+<script type="text/javascript" charset="utf-8" src="src/util/auth.js"></script>
+<script type="text/javascript" charset="utf-8" src="src/app.js"></script>
+<script type="text/javascript" charset="utf-8" src="src/filters.js"></script>
+<script type="text/javascript" charset="utf-8" src="src/controllers.js"></script>
+<script type="text/javascript" charset="utf-8" src="src/services.js"></script>
+<script type="text/javascript" charset="utf-8" src="src/main.js"></script>
+</html>

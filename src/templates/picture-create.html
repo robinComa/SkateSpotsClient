@@ -1,0 +1,20 @@
+<div class="span6 offset3">
+
+	<div class="btn-group" ng-show="isMobile">
+		<button class="btn" ng-click="camera()"><i class="icon-camera"></i> {{'spot.add.picture.camera' | i18n}}</button>
+		<button class="btn" ng-click="gallery()"><i class="icon-camera"></i> {{'spot.add.picture.gallery' | i18n}}</button>
+	</div>
+	
+	<div ng-hide="isMobile" class="control-group" ng-class="{error: error, success : success}">
+		<input type="file" ng-model="picture" onchange="angular.element(this).scope().setPicture(this.files[0])">	
+	</div>
+	
+	<h1 ng-hide="hasPicture || init">{{'wait' | i18n}}...</h1>
+	
+	<form ng-submit="postImage()" ng-show="hasPicture">
+		<img id="picture-preview"/>
+		<input type="hidden" id="input-picture-64">
+		<button type="submit" class="btn btn-success btn-large btn-block" ng-class="{disabled: disabled}">{{'picture.create.submit' | i18n}} <i class="icon-ok icon-white"></i></button>
+	</form>
+
+</div>

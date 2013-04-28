@@ -1,0 +1,18 @@
+<div class="span12">
+	<div class="container-fluid">
+	
+		<div id="map" class="thumbnail"></div>
+		<hr>
+		<div class="well sidebar-nav">
+			<ul class="nav nav-list">
+				<li ng-repeat="user in users">
+					<a href="#/user/show/{{user.id}}">
+						<img ng-show="user.avatar" ng-src="{{user.avatar | cloudinary:'mini'}}" class="img-circle"/>
+						{{user.name}}
+					</a>
+				</li>
+			</ul>
+		</div>
+	
+	</div>
+</div>

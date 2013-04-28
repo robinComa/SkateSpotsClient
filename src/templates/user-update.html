@@ -1,0 +1,29 @@
+<div class="row-fluid">
+
+	<div class="span4 offset1">
+		<img ng-show="user.avatar" ng-src="{{user.avatar | cloudinary:'small'}}" class="img-polaroid"/>
+		<a href="#/picture/create/user/updateAvatar/{{user.id}}" class="btn btn-large btn-block btn-primary">{{'user.update.avatar' | i18n}}</a>
+		
+		<hr>
+		
+		<form ng-submit="onUpdateBoardInfo()">
+			<input ng-model="size" class="span3" required="required" type="number" min="6.5" step="0.05" max="8.75" placeholder="{{'user.update.board.size' | i18n}}"/>
+			<input ng-model="name" class="span3" required="required" type="text" placeholder="{{'user.update.board.name' | i18n}}"/>
+			<button class="btn btn-success btn-block btn-large" type="submit">{{'user.update.board' | i18n}}</button>
+		</form>
+		
+	</div>
+	
+	<div class="span4 offset1">
+		
+		<img ng-show="user.board.picture" ng-src="{{user.board.picture | cloudinary:'small'}}" class="img-polaroid"/>
+		<a href="#/picture/create/user/updateBoardPicture/{{user.id}}" class="btn btn-large btn-block btn-primary">{{'user.update.board.picture' | i18n}}</a>
+		
+		<hr>
+		
+		<img ng-show="user.board.logo" ng-src="{{user.board.logo | cloudinary:'small'}}" class="img-polaroid"/>
+		<a href="#/picture/create/user/updateBoardLogo/{{user.id}}" class="btn btn-large btn-block btn-primary">{{'user.update.board.logo' | i18n}}</a>
+		
+	</div>
+
+</div>

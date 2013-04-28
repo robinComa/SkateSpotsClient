@@ -1,0 +1,56 @@
+<div class="span12">
+	<div class="container-fluid">
+		<div id="map" class="thumbnail"></div>
+		<hr>
+		<div class="well">
+			<button class="close" ng-click="descriptionUpdate = !descriptionUpdate"><i class="icon icon-edit"></i></button>
+			<h3 class="text-center">{{spot.name}}</h3>
+			<p class="text-center text-info" ng-hide="descriptionUpdate">{{spot.description}}</p>
+			<form ng-submit="onSpotDescriptionChange()" ng-show="descriptionUpdate">
+				<textarea required="required" maxlength="255" rows="" cols="" ng-model="spot.description" class="input-block-level"></textarea>
+				<button class="btn btn-large btn-block btn-success">{{'spot.update.description' | i18n}} <i class="icon-white icon-ok"></i></button>
+			</form>
+		</div>
+	
+		<button ng-click="onLike()" class="btn btn-success" ng-class="{disabled: spot.alreadyLike}">{{spot.nbLikes}} <i ng-class="{'icon-thumbs-up': !like,'icon-thumbs-down': like}" class="icon-white"></i></button>
+	
+		<hr>
+	
+		<div class="span7">
+			<a href="#/picture/create/spot/addPicture/{{spot.id}}" class="btn btn-primary btn-large btn-block">{{'spot.add.picture' | i18n}} <i class="icon-picture icon-white"></i></a>
+		
+			<div id="pictureCarousel" class="carousel slide" ng-show="hasPicture">
+				<ol class="carousel-indicators">
+					<li data-target="#pictureCarousel" data-slide-to="{{$index}}" ng-repeat="picture in spot.pictures" ng-class="{active : $first}"></li>
+				</ol>
+				<!-- Carousel items -->
+				<div class="carousel-inner">
+					<div class="item" ng-class="{active : $first}" ng-repeat="picture in spot.pictures">
+						<img ng-src="{{picture.src | cloudinary:'large'}}" class="img-polaroid"/>
+					</div>
+				</div>
+				<!-- Carousel nav -->
+				<a class="carousel-control left" ng-show="spot.pictures.length > 1" href="#pictureCarousel" data-slide="prev">&lsaquo;</a>
+				<a class="carousel-control right" ng-show="spot.pictures.length > 1" href="#pictureCarousel" data-slide="next">&rsaquo;</a>
+			</div>
+		</div>
+		
+		<div class="span4">
+			<form ng-submit="onComment()">
+				<textarea required="required" maxlength="255" rows="" cols="" ng-model="comment" placeholder="{{'spot.create.comment' | i18n}}"  class="input-block-level"></textarea>
+				<button type="submit" class="btn btn-large btn-block btn-success">{{'spot.create.comment.submit' | i18n}} <i class="icon-comment icon-white"></i></button>
+			</form>
+			
+			<div ng-repeat="comment in spot.comments | orderBy:'date':true" class="well well-small">
+				<button class="close" ng-click="onDeleteComment(comment)">&times;</button>
+				<a href="#/user/show/{{comment.user.id}}">
+					<img ng-src="{{comment.user.avatar | cloudinary:'mini'}}" class="img-circle"/>
+				</a>
+				<strong><small>{{comment.user.firstName}} {{comment.user.lastName}}</small></strong>
+				<i class="pull-right text-info"><small>{{comment.date | dateDelta}}&nbsp;&nbsp;&nbsp;</small></i>
+				<hr>
+				<p class="text-center"><small class="text-info">{{comment.comment}}</small></p>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,10 +1,8 @@
-angular.module('i18nFilter', []).filter('i18n', ['$rootScope', function($rootScope) {
+angular.module('SkateSpots.filters', []).filter('i18n', ['$rootScope', function($rootScope) {
     return function (input) {
         return $rootScope.i18n.get(input);
     };
-}]);
-
-angular.module('cloudinaryFilter', []).filter('cloudinary', ['$rootScope', function($rootScope) {
+}]).filter('cloudinary', ['$rootScope', function($rootScope) {
     return function (img, filter) {
     	var transformation = {
     		mini : 'w_40,h_40,c_fill',
@@ -14,9 +12,7 @@ angular.module('cloudinaryFilter', []).filter('cloudinary', ['$rootScope', funct
     	};
         return 'http://res.cloudinary.com/diuymnnec/image/upload/'+transformation[filter]+'/'+img+'.jpg';
     };
-}]);
-
-angular.module('dateDeltaFilter', []).filter('dateDelta', ['$rootScope', function($rootScope) {
+}]).filter('dateDelta', ['$rootScope', function($rootScope) {
     return function (date) {
 		var dateStr = '';
 		var MINUTES = 1000*60;

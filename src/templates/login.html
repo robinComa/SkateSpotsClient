@@ -5,12 +5,8 @@
 	<img src="img/logo/600x600.png" class="span6 offset3 img-polaroid"/>
 	
 	<hr>
-
-	<fb:login-button show-faces="true" width="450" perms="email,user_birthday,read_stream"></fb:login-button>
 	
-	<div id="googleSigninButton" class="span6 offset3">
-		<span class="googleSingninIcon"></span>
-    	<span>{{'connect.with.google'|i18n}}</span>
-	</div>
+	<a href="#" class="btn btn-large btn-success span12" ng-click="login();">{{'connect.with.facebook' | i18n}}</a>
+	<fb:login-button show-faces="true" width="450" perms="email,user_birthday,read_stream"></fb:login-button>
 		
 </div>

@@ -6,23 +6,46 @@ function isConnected($rootScope, $location){
 }
 
 function LoginCtrl($rootScope, $scope, $location, $routeParams, $http, User){
-	var auth = new Auth();
-	auth.init();
-	auth.onAuthCallback = function(social_user){
-		console.log(social_user)
+	var facebookLoginCallback = function(social_user){
 		$http.defaults.headers.common["Authorization"] = window.btoa(social_user.id);
 		User.login({}, function(data){
 			$rootScope.user = data;
 			$location.path('/user/show/'+$rootScope.user.id);
-		}, function(){
-			$rootScope.social_user = social_user;
-			$location.path('/user/create');
+		}, function(resp){
+			switch (parseInt(resp.status)) {
+			case 401://No account
+				$rootScope.social_user = social_user;
+				$location.path('/user/create');
+				break;
+			case 0 :
+				$rootScope.alert = {
+					show : true,
+					type : 'alert-error',
+					message : $rootScope.i18n.get('server.error.down')
+				};
+				break;
+			default:
+				$rootScope.alert = {
+					show : true,
+					type : 'alert-error',
+					message : $rootScope.i18n.get('server.error.unknow', [resp.status])
+				};
+				break;
+			}
 		});
-	}
+	};
+	if($rootScope.isMobile){
+		$scope.login = function(){
+			$rootScope.util.auth.connect(facebookLoginCallback);
+		};
+	}else{
+		$rootScope.util.auth.connect(facebookLoginCallback);
+	}	
 }
 
 function LogoutCtrl($rootScope, $scope, $location, $http){
 	if(isConnected($rootScope, $location)){
+		$rootScope.util.auth.disconnect();
 		$http.defaults.headers.common["Authorization"] = '';
 		delete $rootScope['user'];
 		$location.path('/');
@@ -35,14 +58,15 @@ function UserCreateCtrl($rootScope, $scope, $location, User){
 		$scope.onCreateUser = function(){
 			$rootScope.util.getUserPosition(function(currentCoordinates){
 				if(currentCoordinates){
-					User.create({
+					var newUser = {
 						clientId : $scope.social_user.id,
 						social : $rootScope.social_user.social,
 						name : $scope.name,
 						email : $rootScope.social_user.email,
 						avatar : $rootScope.social_user.avatar,
 						coordinates : currentCoordinates
-					}, function(data){
+					};
+					User.create(newUser, function(data){
 						$rootScope.user = data;
 						$location.path('/user/show/'+$rootScope.user.id);
 					}, function(){

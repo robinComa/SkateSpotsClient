@@ -1,4 +1,4 @@
-angular.module('SkateSpots', ['i18nService', 'i18nFilter', 'cloudinaryFilter', 'dateDeltaFilter', 'userService', 'spotService', 'pictureService'])
+angular.module('SkateSpots', ['SkateSpots.services', 'SkateSpots.filters', 'SkateSpots.directives'])
 	.config(['$routeProvider', function($routeProvider) {
 		$routeProvider.
 			when('/', {templateUrl: 'src/templates/login.html', controller: LoginCtrl}).
@@ -85,6 +85,86 @@ angular.module('SkateSpots', ['i18nService', 'i18nFilter', 'cloudinaryFilter', '
 			callbackFailed($rootScope.i18n.get('gps.active.error'));
 		}
 	};
+	
+	//Auth Facebook
+	var AuthWeb = function(){
+		
+		(function(d, s, id){
+			var js, fjs = d.getElementsByTagName(s)[0];
+			if (d.getElementById(id)) {return;}
+			js = d.createElement(s); js.id = id;
+			js.src = "//connect.facebook.net/en_US/all.js";
+			fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+		
+		this.connect = function(callback){
+			
+			window.fbAsyncInit = function() {
+				FB.init({
+			        appId  : '463627307038698',
+			        status : true,
+			        cookie : true,
+			        xfbml  : true
+			    });
+				var facebookInformation = function(){
+					FB.api('/me', function(resp) {
+						var user = {
+							id : resp.id,
+							social : 'Facebook',
+							name : resp.name,
+							email : resp.email,
+							avatar : 'http://graph.facebook.com/' + resp.id + '/picture'
+						};
+						callback(user);
+					});
+				};
+							
+				FB.getLoginStatus(function(response) {
+					if (response.status === 'connected') {
+				    	facebookInformation();
+					} else if (response.status === 'not_authorized') {
+						
+					} else {
+						
+					}
+				});
+				
+				FB.Event.subscribe('auth.login', function(response) {
+					facebookInformation();
+			    });
+			};
+			
+		};
+		
+		this.disconnect = function(){
+			FB.logout();
+		};
+	};
+	
+	var AuthMobile = function(){
+		
+		this.connect = function(callback){
+			var appId = "463627307038698";
+	        window.plugins.facebookConnect.login({permissions: ["email", "user_about_me"], appId: appId}, function(resp) {
+	        	var user = {
+					id : resp.id,
+					social : 'Facebook',
+					name : resp.name,
+					email : resp.email,
+					avatar : 'http://graph.facebook.com/' + resp.id + '/picture'
+				};
+	        	callback(user);
+	        });
+		};
+		
+		this.disconnect = function(){
+			window.plugins.facebookConnect.logout(function(result) {
+	            console.log("facebookConnect.logout:" + JSON.stringify(result));
+	        });
+		};
+	};
+
+	$rootScope.util.auth = $rootScope.isMobile ? new AuthMobile() : new AuthWeb();
 	
 	/** Enf of Utils */
 });

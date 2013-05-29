@@ -1,12 +1,8 @@
 /** Local static data Services */
 
-angular.module('i18nService', ['ngResource']).factory('I18n', function($resource){
+angular.module('SkateSpots.services', ['ngResource']).factory('I18n', function($resource){
 	return $resource('i18n/:lang.json', {lang:'@lang'});
-});
-
-/** Distant data Services */
-
-angular.module('userService', ['ngResource']).factory('User', function($resource, $rootScope){
+}).factory('User', function($resource, $rootScope){
 	return $resource($rootScope.backend, {'name' : 'user', id: '@id', 'method' : '@method'}, {
 		login : {
 			method:'GET'
@@ -33,9 +29,7 @@ angular.module('userService', ['ngResource']).factory('User', function($resource
 			}
 		}
 	});
-});
-
-angular.module('spotService', ['ngResource']).factory('Spot', function($resource, $rootScope){
+}).factory('Spot', function($resource, $rootScope){
 	return $resource($rootScope.backend, {'name' : 'spot', id: '@id', 'method' : '@method'}, {
 		getByCoordinates:{
 			method:'POST',
@@ -77,9 +71,7 @@ angular.module('spotService', ['ngResource']).factory('Spot', function($resource
 			}
 		}
 	});
-});
-
-angular.module('pictureService', ['ngResource']).factory('Picture', function($resource, $rootScope){
+}).factory('Picture', function($resource, $rootScope){
 	return $resource($rootScope.backend, {'name' : '@resource', id: '@id', 'method' : '@method'}, {
 		put:{
 			method:'PUT'
